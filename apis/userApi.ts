@@ -14,6 +14,7 @@ export const login = async (credentials: { email: string; password: string }) =>
     const response = await apiClient.post('/login', credentials);
     return response.data; // Return user data
   } catch (error: unknown) {
+    console.log("Q error:", error)
     if (error instanceof Error) {
       throw new Error(error.message); // Type-safe error handling
     } else {
