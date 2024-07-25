@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, TextField, Typography, Container } from '@mui/material';
+import { Button, TextField, Typography, Container, Box, CircularProgress, Paper } from '@mui/material';
 import { login } from '../apis/userApi';
 import { loginStart, loginSuccess, loginFailure } from '../store/reducers';
 
@@ -36,31 +36,48 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <Container>
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleLogin}
-        disabled={loading}
-      >
-        {loading ? 'Logging in...' : 'Login'}
-      </Button>
-      {error && <Typography color="error">{error}</Typography>}
+    <Container maxWidth="xs">
+      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
+        <Typography variant="h4" component="h1" align="center" gutterBottom>
+          Login
+        </Typography>
+        <Box component="form" noValidate autoComplete="off">
+          <TextField
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            fullWidth
+            margin="normal"
+            variant="outlined"
+          />
+          <Box sx={{ position: 'relative', marginTop: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLogin}
+              disabled={loading}
+              fullWidth
+              sx={{ padding: 1.5 }}
+            >
+              {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
+            </Button>
+            {error && (
+              <Typography color="error" variant="body2" sx={{ marginTop: 2 }}>
+                {error}
+              </Typography>
+            )}
+          </Box>
+        </Box>
+      </Paper>
     </Container>
   );
 };
